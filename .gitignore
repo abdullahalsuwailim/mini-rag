@@ -1,18 +1,19 @@
-# Python
+# Python cache
 __pycache__/
 *.pyc
 
 # Environments
-# Python environments
 .venv/
 venv/
 env/
 ENV/
 
-<<<<<<< HEAD
 # Secrets
 .env
-=======
+
+# VS Code
+.vscode/
+
 # Conda / Python binaries accidentally inside project
 python.exe
 pythonw.exe
@@ -26,21 +27,6 @@ Scripts/
 Include/
 DLLs/
 conda-meta/
-
-# Python cache
-__pycache__/
-*.pyc
->>>>>>> d2164a3f8766fd85c787df997c7520d3f7f1a49c
-
-# VS Code
-.vscode/
-
-<<<<<<< HEAD
-=======
-# Env files
-.env
-
-# More Python/Conda environment files
 LICENSE_PYTHON.txt
 Library/
 Tools/
@@ -49,5 +35,3 @@ libs/
 bin/
 include/
 lib/
-conda-meta/
->>>>>>> d2164a3f8766fd85c787df997c7520d3f7f1a49c
