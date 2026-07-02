@@ -1,0 +1,40 @@
+# Python environments
+.venv/
+venv/
+env/
+ENV/
+
+# Conda / Python binaries accidentally inside project
+python.exe
+pythonw.exe
+python*.dll
+python*.pdb
+*.dll
+*.pyd
+share/
+Lib/
+Scripts/
+Include/
+DLLs/
+conda-meta/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Env files
+.env
+
+# More Python/Conda environment files
+LICENSE_PYTHON.txt
+Library/
+Tools/
+etc/
+libs/
+bin/
+include/
+lib/
+conda-meta/
