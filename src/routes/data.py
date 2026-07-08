@@ -3,9 +3,12 @@ from fastapi.responses import JSONResponse
 import os
 import aiofiles
 import logging
-
 from src.helpers.config import get_settings, Settings
 from src.controllers import DataController, ProjectController
+from src.models.enum.ResponseEnum import ResponseSignal
+from .schemes.data1 import ProcessRequest
+
+
 
 logger = logging.getLogger("uvicorn.error")
 
@@ -28,7 +31,7 @@ async def upload_data(
     if not is_valid:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
-            content={"signal": response_signal.FILE_UPLOAD_FAILED.value}
+            content={"signal": ResponseSignal.FILE_UPLOAD_FAILED.value}
         )
 
     project_dir_path = ProjectController().get_project_path(project_id=project_id)
