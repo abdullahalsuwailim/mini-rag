@@ -60,3 +60,11 @@ async def upload_data(
                "file_id": file_id,
            }
          )
+@data_router.post("/process/{project_id}")
+async def process_endpoint(
+    project_id: str,
+    process_request: ProcessRequest):
+    
+    file_id = process_request.file_id
+    
+    return file_id
