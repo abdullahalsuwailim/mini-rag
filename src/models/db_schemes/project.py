@@ -4,8 +4,8 @@ from bson.objectid import ObjectId
 
 
 class Project(BaseModel):
-    id: Optional[ObjectId]
-    project_id= str =   Field(...,min_length=1)
+    id: Optional[ObjectId] = None
+    project_id: str =   Field(...,min_length=1)
     
     @field_validator("project_id")
     def validate_project_id(cls, value):
