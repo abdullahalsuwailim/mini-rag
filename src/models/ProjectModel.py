@@ -1,7 +1,6 @@
 from src.models.BaseDataModel import BaseDataModel
 from.db_schemes.project import Project
 from .enum.DataBaseEnum import DataBaseEnum
-from src.models.db_schemes import project
 
 class ProjectModel(BaseDataModel):
     
@@ -12,7 +11,7 @@ class ProjectModel(BaseDataModel):
         
     async def create_project(self, project: Project):
         result = await self.collection.insert_one(
-        project.model_dump(exclude_none=True)
+            project.model_dump(by_alias=True, exclude_unset=True)
     )
 
         project.id = result.inserted_id
@@ -32,7 +31,6 @@ class ProjectModel(BaseDataModel):
             
             return project
         
-        record["id"] = record["_id"]
         return Project(**record)
     
     
