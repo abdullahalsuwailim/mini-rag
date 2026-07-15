@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class LLMinterface(ABC):
+class LLMInterface(ABC):
     
     @abstractmethod
     def set_generation_model(self, model_id: str):
@@ -17,7 +17,7 @@ class LLMinterface(ABC):
         pass
     
     @abstractmethod
-    def embed_text(self, text: str , documemnt_type: str=None):
+    def embed_text(self, text: str , document_type: str=None):
         pass
     
     @abstractmethod

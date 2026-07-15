@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from ..LLMInterface import LLMInterface
 from ..LLMEnums import CoHereEnums , DocumentTypeEnum
 import logging
@@ -19,7 +20,7 @@ class CoHereProvider(LLMInterface):
         self.embedding_model_id = None
         self.embedding_size = None
         
-        self.client = cohere.client(api_key=self.api_key)
+        self.client = cohere.Client(api_key=self.api_key)
         
         self.logger = logging.getLogger(__name__)
         
@@ -59,7 +60,7 @@ class CoHereProvider(LLMInterface):
         return response.text
         
         
-    def embed_text(self, text: str , documemnt_type: str = None):
+    def embed_text(self, text: str , document_type: str = None):
         if not self.client:
             self.logger.error(" CoHere client was not set")
             return None
@@ -69,20 +70,19 @@ class CoHereProvider(LLMInterface):
             return None
         
         input_type = CoHereEnums.DOCUMENT
-        if documemnt_type == DocumentTypeEnum.QUERY:
+        if document_type == DocumentTypeEnum.QUERY:
             input_type = CoHereEnums.QUERY
             
         response = self.client.embed(
             model = self.embedding_model_id,
-            text = [self.process_text(text)],
-            input_type = input_type,
-            embediding_types =['float']     
+            texts = [self.process_text(text)],
+            input_type = input_type,   
         )    
-        if not response or not response.embeddings or not response.embeddings.float:
+        if not response or not response.embeddings:
             self.logger.error("Error while embedding text with CoHere")
             return None
         
-        return response.embeddings.float[0]
+        return response.embeddings[0]
     def construct_prompt(self, prompt: str, role: str):
         return {
             "role": role,

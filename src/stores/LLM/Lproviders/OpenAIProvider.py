@@ -1,5 +1,5 @@
 from ..LLMInterface import LLMInterface
-from openai import Openai
+from openai import OpenAI
 from ..LLMEnums import OpenAIEnums
 import logging
 
@@ -20,7 +20,7 @@ class OpenAIProvider(LLMInterface):
         
         self.embedding_model_id = None
         self.embedding_size = None
-        self.client = Openai(
+        self.client = OpenAI(
             api_key=self.api_key,
             api_url=self.api_url
         )
@@ -66,7 +66,7 @@ class OpenAIProvider(LLMInterface):
         
         return response.choices[0].message["content"]
         
-    def embed_text(self, text: str , documemnt_type: str = None):
+    def embed_text(self, text: str , document_type: str = None):
             
         if not self.client:
             self.logger.error(" OpenAI client was not set")
