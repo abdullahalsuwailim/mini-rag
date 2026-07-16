@@ -5,6 +5,7 @@ from ..VectorDBInterface import VectorDBInterface
 from src.stores.vectordb.VectorDBEnum import DistanceMethodEnum
 import logging
 from typing import List
+from src.models.db_schemes.DataChunk import RetrievedDocument
 
 class QdrantDBProvider(VectorDBInterface):
     def __init__(self,db_path : str, distance_method : str):
@@ -124,10 +125,20 @@ class QdrantDBProvider(VectorDBInterface):
         
         return True    
 
+
     def search_by_vector(self, collection_name: str, vector: list, limit: int=5):
-        return self.client.query_points(
+        results = self.client.query_points(
             collection_name=collection_name,
             query=vector,
             limit=limit
         )
+        if not results or not results.points:
+            return None
+        return [
+            RetrievedDocument(**{
+                "score": result.score,
+                "text": result.payload["text"],
+            })
+             for result in results.points
+        ]
         
