@@ -96,6 +96,8 @@ class NLPController(BaseController):
         
         answer , full_prompt , chat_history = None , None , None
         
+        self.template_parser.set_language_from_text(query)
+        
         #step1: retrieve related documents
         retrieved_documents = self.search_vector_db_collection(
             Project = project,
@@ -118,7 +120,9 @@ class NLPController(BaseController):
             for idx , doc in enumerate(retrieved_documents)
         ])
         
-        footer_prompt = self.template_parser.get("rag", "footer_prompt")
+        footer_prompt = self.template_parser.get("rag", "footer_prompt",{
+            "query": query
+        })
         
         # step3: Construct Generation Client Prompts
         chat_history = [
