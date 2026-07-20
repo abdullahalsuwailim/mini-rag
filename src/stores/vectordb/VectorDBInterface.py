@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
-from src.models.db_schemes.DataChunk import RetrievedDocument
+from src.models.db_schemes.minirag.schemes.datachunk import RetrievedDocument
 
 class VectorDBInterface(ABC):
     @abstractmethod

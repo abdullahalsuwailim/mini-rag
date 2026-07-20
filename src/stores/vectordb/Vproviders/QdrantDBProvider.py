@@ -5,7 +5,7 @@ from ..VectorDBInterface import VectorDBInterface
 from src.stores.vectordb.VectorDBEnum import DistanceMethodEnum
 import logging
 from typing import List
-from src.models.db_schemes.DataChunk import RetrievedDocument
+from src.models.db_schemes.minirag.schemes.datachunk import RetrievedDocument
 
 class QdrantDBProvider(VectorDBInterface):
     def __init__(self,db_path : str, distance_method : str):
