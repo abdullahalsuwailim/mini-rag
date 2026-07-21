@@ -16,6 +16,10 @@ export PS1="\[\033[01;32m\]\u@\h:\w\n\[\033[00m\]\$ "
 
 conda activate mini-rag-app
 
+### run
+
+python -m uvicorn src.main:app --reload --reload-dir src
+
 #### Install Dependencies
 
 ```bash
@@ -37,7 +41,7 @@ export PS1="\[\033[01;32m\]\u@\h:\w\n\[\033[00m\]\$ "
 ### Install the required packages
 
 ```bash
-$ pip install -r requirements.txt
+$ pip install -r src/requirements.txt
 ```
 ### Setup the environment variables
 
@@ -74,3 +78,10 @@ $ sudo docker compose up -d
 - **Flower Dashboard**: 
 - **Grafana**:
 - **Prometheus**: 
+
+## docker 
+```bash
+
+$ docker compose -f docker/docker-compose.yml up pgvector
+
+```

@@ -4,7 +4,7 @@ import os
 import aiofiles
 import logging
 from src.helpers.config import get_settings, Settings
-from src.controllers import DataController, ProjectController, ProcessController
+from src.controllers import DataController, ProjectController, ProcessController , NLPController
 from src.models.enum.ResponseEnum import ResponseSignal
 from .schemes.data1 import ProcessRequest
 from src.models.ProjectModel import ProjectModel
@@ -105,6 +105,13 @@ async def process_endpoint(
         project_id=project_id
         )
     
+    nlp_controller = NLPController(
+        vectordb_client=request.app.vectordb_client,
+        generation_client=request.app.generation_client,
+        embedding_client=request.app.embedding_client,
+        template_parser=request.app.template_parser,
+        )
+    
     asset_model = await AssetModel.create_instance(
             db_client=request.app.db_client
         )
@@ -160,7 +167,11 @@ async def process_endpoint(
                     )
     
     if do_reset == 1:
-            _= await chunk_model.delete_chunks_by_project_id(
+        collection_name = nlp_controller.create_collection_name(project_id=project.project_id)
+        
+        _= await request.app.vectordb_client.delete_collection(collection_name=collection_name)
+        
+        _= await chunk_model.delete_chunks_by_project_id(
                 project_id=project.project_id
                 )
     
