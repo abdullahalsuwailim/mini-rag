@@ -91,7 +91,7 @@ async def index_project(request: Request, project_id: int, push_request: PushReq
         inserted_items_count += len(page_chunks)  
     return JSONResponse(
         content={
-            "signal": ResponseSignal.VECTORDB_SEARCH_SUCCESS.value
+            "signal": ResponseSignal.INSERT_INTO_VECTORDB_SUCCESS.value
             , "inserted_items_count": inserted_items_count
         }
     )
